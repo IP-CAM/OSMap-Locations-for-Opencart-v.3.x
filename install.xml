@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>OSMap Locations</name>
+    <code>DOSMapLocations</code>
+    <version>1.0</version>
+    <author>D.art</author>
+
+    <file path="admin/model/localisation/language.php">
+        <operation>
+            <search><![CDATA[return $language_id;]]></search>
+            <add position="before"><![CDATA[
+        /* Start --- Module D.OSMap Locations --- Start */
+
+        $this->load->model('extension/module/dosmap_locations');
+        $this->model_extension_module_dosmap_locations->copyCurrentLanguageLocation($language_id);
+
+        /*   End --- Module D.OSMap Locations --- End   */
+            ]]></add>
+        </operation>
+    </file>
+</modification>
