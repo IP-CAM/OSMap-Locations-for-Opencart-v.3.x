@@ -7,7 +7,8 @@
     <p>
         <a href="https://php.net/" rel="nofollow"><img src="https://img.shields.io/badge/php->=7.3-8892bf?style=flat-square" alt="Minimum PHP Version"></a>
         <a href="https://php.net/" rel="nofollow"><img src="https://img.shields.io/badge/release-v1.0.0-0d7fc0" alt="GitHub release"></a>
-        <a href="https://php.net/" rel="nofollow"><img src="https://img.shields.io/badge/cms-opencart 3.x-2bbdec" alt="CMS OpenCart 3.x"></a>
+        <a href="https://php.net/" rel="nofollow"><img src="https://img.shields.io/badge/cms-opencart-2bbdec" alt="CMS OpenCart"></a>
+        <a href="https://php.net/" rel="nofollow"><img src="https://img.shields.io/badge/opencart-3.x, 4.x-2bbdec" alt="CMS OpenCart 3.x, 4.x"></a>
     </p>
     <p>OSMap Locations displays a list of markers on the OpenStreetMap. Thanks to the convenient modern interface, you can easily add/change/delete any marker on the map. Added support for HTML in markers.</p>
     <h3>Note:</h3>
@@ -39,6 +40,7 @@
     <h3>Compatibility:</h3>
     <p>
         <ul>
+            <li>OpenCart 4.x</li>
             <li>OpenCart 3.x</li>
             <li>ocStore 3.x</li>
         </ul>
