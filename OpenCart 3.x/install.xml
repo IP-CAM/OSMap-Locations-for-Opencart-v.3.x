@@ -2,8 +2,9 @@
 <modification>
     <name>OSMap Locations</name>
     <code>DOSMapLocations</code>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <author>D.art</author>
+    <link>https://github.com/dart-maker/dosmap_locations-opencart</link>
 
     <file path="admin/model/localisation/language.php">
         <operation>
