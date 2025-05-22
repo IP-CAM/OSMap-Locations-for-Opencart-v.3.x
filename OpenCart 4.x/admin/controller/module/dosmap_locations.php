@@ -82,7 +82,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
+            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module'));
         }
 
         $this->document->addScript(HTTP_CATALOG . 'admin/view/javascript/ckeditor/ckeditor.js');
@@ -209,21 +209,21 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_extension'),
-            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
+            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module')
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url, true)
+            'href' => $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url)
         );
 
-        $data['action'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'save', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+        $data['action'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'save', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module');
 
         $url = '';
 
@@ -231,17 +231,17 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&module_id=' . $this->request->get['module_id'];
         }
 
-        $data['action_add'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_open'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'open', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_edit'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'edit', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_delete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_update_json'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'updateJSON', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_add'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'add', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['action_open'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'open', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['action_edit'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'edit', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['action_delete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'delete', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['action_update_json'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'updateJSON', 'user_token=' . $this->session->data['user_token'] . $url);
 
         if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $module_info = $this->model_setting_module->getModule($this->request->get['module_id']);
 
             if (empty($module_info)) {
-                $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
+                $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module'));
             }
         }
 
@@ -512,14 +512,14 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&tab=locations';
         }
 
-        $data['sort_location_id'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=location_id', true);
-        $data['sort_title'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=title', true);
-        $data['sort_baloon_header'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=baloon_header', true);
-        $data['sort_baloon_footer'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=baloon_footer', true);
-        $data['sort_latitude'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=latitude', true);
-        $data['sort_longitude'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=longitude', true);
-        $data['sort_status'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=status', true);
-        $data['sort_order'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=sort_order', true);
+        $data['sort_location_id'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=location_id');
+        $data['sort_title'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=title');
+        $data['sort_baloon_header'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=baloon_header');
+        $data['sort_baloon_footer'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=baloon_footer');
+        $data['sort_latitude'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=latitude');
+        $data['sort_longitude'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=longitude');
+        $data['sort_status'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=status');
+        $data['sort_order'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&sort=sort_order');
 
         /* Pagination */
 
@@ -583,8 +583,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
         $data['filter_longitude'] = $filter_longitude;
         $data['filter_status'] = $filter_status;
 
-        $data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        //$data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'list', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url);
+        //$data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'list', 'user_token=' . $this->session->data['user_token'] . $url);
 
         $url = '';
 
@@ -592,7 +592,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&module_id=' . $this->request->get['module_id'];
         }
 
-        $data['filter_autocomplete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'autocomplete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['filter_autocomplete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'autocomplete', 'user_token=' . $this->session->data['user_token'] . $url);
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -602,7 +602,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $data['filter_reset_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['filter_reset_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url);
 
         /* Sort/Order data */
 
