@@ -14,8 +14,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
      * Index.
      * Event trigger: admin/model/localisation/language/addLanguage/after
      *
-     * @param  mixed $route
-     * @param  mixed $data
+     * @param  string $route
+     * @param  array $data
      * @param  mixed $output
      *
      * @return void

@@ -9,6 +9,8 @@
 
 class ControllerExtensionModuleDOSMapLocations extends Controller {
 	public function index($setting) {
+        $view = '';
+
         if ($setting['status']) {
             static $module = 0;
 
@@ -53,18 +55,18 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
             $data['attr_ID'] = $setting['attr_ID'];
 
             if ($this->request->server['HTTPS']) {
-                $http_server = HTTPS_SERVER;
+                $HTTP_SERVER = HTTPS_SERVER;
             } else {
-                $http_server = HTTP_SERVER;
+                $HTTP_SERVER = HTTP_SERVER;
             }
 
             /* Map Marker URLs */
 
             // Icon Points, custom-default
-            $data['url_icon_point'] = $http_server . 'catalog/view/javascript/module-dosmap_locations/icons/icon-point-default.png';
+            $data['url_icon_point'] = $HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/icons/icon-point-default.png';
 
             // Icon Clusters, custom-default
-            $data['url_icon_cluster'] = $http_server . 'catalog/view/javascript/module-dosmap_locations/icons/icon-cluster-default.svg';
+            $data['url_icon_cluster'] = $HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/icons/icon-cluster-default.svg';
 
             /* GeoJSON-file */
 
@@ -114,7 +116,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
             }
 
             // Points. JSON-file URL.
-            $data['url_dosmap_points'] = $http_server . 'image/module-dosmap_locations/json/points--' . $module_id . '--' . $language_id . '--' . $max_timestamp . '.geojson';
+            $data['url_dosmap_points'] = $HTTP_SERVER . 'image/module-dosmap_locations/json/points--' . $module_id . '--' . $language_id . '--' . $max_timestamp . '.geojson';
 
             /* Languages */
 
@@ -150,13 +152,13 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
             switch ($data['ver_api']) {
                 case 'leaflet_194':
                     // Leaflet API.
-                    $this->document->addStyle($http_server . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/leaflet.css');
-                    $this->document->addScript($http_server . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/leaflet.js');
+                    $this->document->addStyle($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/leaflet.css');
+                    $this->document->addScript($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/leaflet.js');
 
                     // Cluster Plugin for Leaflet API.
                     if ($data['dosmap_clusterization']) {
-                        $this->document->addStyle($http_server . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/plugin/markercluster-1.4.1/MarkerCluster.Custom.css');
-                        $this->document->addScript($http_server . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/plugin/markercluster-1.4.1/leaflet.markercluster.custom.js');
+                        $this->document->addStyle($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/plugin/markercluster-1.4.1/MarkerCluster.Custom.css');
+                        $this->document->addScript($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/api/leaflet-1.9.4/plugin/markercluster-1.4.1/leaflet.markercluster.custom.js');
                     }
                     break;
                 default:
@@ -165,8 +167,8 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
             /* Module Styles/Scripts */
 
-            $this->document->addStyle($http_server . 'catalog/view/javascript/module-dosmap_locations/dosmap_locations.css');
-            $this->document->addScript($http_server . 'catalog/view/javascript/module-dosmap_locations/dosmap_locations.js');
+            $this->document->addStyle($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/dosmap_locations.css');
+            $this->document->addScript($HTTP_SERVER . 'catalog/view/javascript/module-dosmap_locations/dosmap_locations.js');
 
             /* Filter data */
 
@@ -342,15 +344,15 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
             $data['pagination'] = $pagination->render();
             $data['pagination'] = str_replace(array('&dosmap_page={page}', '&amp;dosmap_page={page}', '?dosmap_page={page}'), '', $data['pagination']);
 
-            $data['results'] = sprintf($this->language->get('text_pagination'), ($location_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($location_total - $limit)) ? $location_total : ((($page - 1) * $limit) + $limit), $location_total, ceil($location_total / $limit));
+            $data['results'] = sprintf($this->language->get('text_pagination'), $location_total ? (($page - 1) * $limit) + 1 : 0, (($page - 1) * $limit) > ($location_total - $limit) ? $location_total : (($page - 1) * $limit) + $limit, $location_total, ceil($location_total / $limit));
 
             /* Output */
 
             $data['module'] = $module++;
 
-            return $this->load->view('extension/module/dosmap_locations', $data);
-        } else {
-            return '';
+            $view = $this->load->view('extension/module/dosmap_locations', $data);
         }
+
+        return $view;
 	}
 }

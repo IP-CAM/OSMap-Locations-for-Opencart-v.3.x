@@ -14,6 +14,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Model {
     * Add Location.
     *
     * @param array $data
+    * @param int $module_id
     *
     * @return int $location_id
     */
@@ -300,7 +301,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Model {
      * 
      * @param string $tables_name
      * 
-     * @return bool $exists
+     * @return bool
      */
     private function tableExists(string $tables_name): bool {
         return $this->db->query("SHOW TABLES LIKE '" . $tables_name . "'")->num_rows > 0;

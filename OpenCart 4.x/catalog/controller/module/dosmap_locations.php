@@ -10,6 +10,8 @@
 namespace Opencart\Catalog\Controller\Extension\DOSMapLocations\Module;
 class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	public function index(array $setting): string {
+        $view = '';
+
         if ($setting['status']) {
             static $module = 0;
 
@@ -17,8 +19,6 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 
             $this->load->model('localisation/language');
             $this->load->model('extension/dosmap_locations/module/dosmap_locations');
-
-            $x = (version_compare(VERSION, '4.0.2.0', '>=')) ? '.' : '|';
 
             if (isset($this->request->get['dosmap_sort'])) {
                 $sort = $this->request->get['dosmap_sort'];
@@ -339,15 +339,15 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 
             $data['pagination'] = str_replace(array('&dosmap_page={page}', '&amp;dosmap_page={page}', '?dosmap_page={page}'), '', $data['pagination']);
 
-            $data['results'] = sprintf($this->language->get('text_pagination'), ($location_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($location_total - $limit)) ? $location_total : ((($page - 1) * $limit) + $limit), $location_total, ceil($location_total / $limit));
+            $data['results'] = sprintf($this->language->get('text_pagination'), $location_total ? (($page - 1) * $limit) + 1 : 0, (($page - 1) * $limit) > ($location_total - $limit) ? $location_total : (($page - 1) * $limit) + $limit, $location_total, ceil($location_total / $limit));
 
             /* Output */
 
             $data['module'] = $module++;
 
-            return $this->load->view('extension/dosmap_locations/module/dosmap_locations', $data);
-        } else {
-            return '';
+            $view = $this->load->view('extension/dosmap_locations/module/dosmap_locations', $data);
         }
+
+        return $view;
 	}
 }

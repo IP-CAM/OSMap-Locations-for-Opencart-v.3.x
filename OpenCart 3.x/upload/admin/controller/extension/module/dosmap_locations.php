@@ -69,13 +69,13 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
         }
 
         if ($this->request->server['HTTPS']) {
-            $http_server = HTTPS_SERVER;
+            $HTTP_SERVER = HTTPS_SERVER;
         } else {
-            $http_server = HTTP_SERVER;
+            $HTTP_SERVER = HTTP_SERVER;
         }
 
-        $this->document->addStyle($http_server . 'view/javascript/module-dosmap_locations/dosmap_locations.css');
-        $this->document->addScript($http_server . 'view/javascript/module-dosmap_locations/dosmap_locations.js');
+        $this->document->addStyle($HTTP_SERVER . 'view/javascript/module-dosmap_locations/dosmap_locations.css');
+        $this->document->addScript($HTTP_SERVER . 'view/javascript/module-dosmap_locations/dosmap_locations.js');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -606,6 +606,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
     /**
     * Add Location.
+    * AJAX.
     *
     * @return void
     */
@@ -653,6 +654,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Open Location.
     * Get Location Descriptions.
+    * AJAX.
     *
     * @return void
     */
@@ -689,6 +691,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
     /**
     * Edit Location.
+    * AJAX.
     *
     * @return void
     */
@@ -733,6 +736,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
     /**
     * Delete Location.
+    * AJAX.
     *
     * @return void
     */
@@ -789,6 +793,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
     /**
     * Update JSON File.
+    * AJAX.
     *
     * @return void
     */
@@ -999,6 +1004,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
 
     /**
     * Filter Locations by field-option.
+    * AJAX.
     *
     * @return void
     */
@@ -1065,7 +1071,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate Permission and Setting fiels.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'extension/module/dosmap_locations')) {
@@ -1082,7 +1088,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate fiels from 'Add Location' tab.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_add() {
         if (empty($this->request->get['module_id'])) {
@@ -1109,7 +1115,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate Location fields from 'open()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_open() {
         if (empty($this->request->get['module_id'])) {
@@ -1128,7 +1134,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate Location fields from 'edit()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_edit() {
         if (empty($this->request->get['module_id'])) {
@@ -1161,7 +1167,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate Location fields from 'delete()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_delete() {
         if (empty($this->request->get['module_id'])) {
@@ -1182,7 +1188,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     /**
     * Validate Module ID from 'updateJSON()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_updateJSON() {
         if (empty($this->request->get['module_id'])) {
@@ -1392,7 +1398,7 @@ class ControllerExtensionModuleDOSMapLocations extends Controller {
     *
     * @return void
     */
-    private function deleteDir(string $dirPath): void {
+    private function deleteDir($dirPath) {
         if (is_dir($dirPath)) {
             $files = scandir($dirPath);
 

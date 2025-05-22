@@ -461,15 +461,12 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="input-dosmap_locs_status">{{ entry_status }}</label>
                                 <div class="col-sm-10">
-                                    <select name="status" id="input-dosmap_locs_status" class="form-select">
-                                        {% if status %}
-                                            <option value="1" selected="selected">{{ text_enabled }}</option>
-                                            <option value="0">{{ text_disabled }}</option>
-                                        {% else %}
-                                            <option value="1">{{ text_enabled }}</option>
-                                            <option value="0" selected="selected">{{ text_disabled }}</option>
-                                        {% endif %}
-                                    </select>
+                                    <div class="input-group">
+                                        <div class="form-check form-switch form-switch-lg">
+                                            <input type="hidden" name="status" value="0" class="hidden"/>
+                                            <input type="checkbox" name="status" value="1" id="input-dosmap_locs_status" class="form-check-input"{% if status %} checked{% endif %}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -604,12 +601,9 @@
                                 <label class="col-sm-2 col-form-label" for="input-dosmap_locs_data_delete">{{ entry_data_delete }}</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <div id="input-dosmap_locs_data_delete" class="form-check form-switch form-switch-lg" style="margin-top: 10px;">
-                                            {% if data_delete %}
-                                                <input type="checkbox" name="module_dosmap_locations_data_delete" value="1" class="form-check-input" checked="checked">
-                                            {% else %}
-                                                <input type="checkbox" name="module_dosmap_locations_data_delete" value="1" class="form-check-input">
-                                            {% endif %}
+                                        <div class="form-check form-switch form-switch-lg">
+                                            <input type="hidden" name="module_dosmap_locations_data_delete" value="0" class="hidden"/>
+                                            <input type="checkbox" name="module_dosmap_locations_data_delete" value="1" id="input-dosmap_locs_data_delete" class="form-check-input"{% if data_delete %} checked{% endif %}/>
                                         </div>
                                     </div>
                                 </div>

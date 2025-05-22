@@ -11,15 +11,17 @@ namespace Opencart\Admin\Controller\Extension\DOSMapLocations\Module;
 class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	private $error = array();
 
+    private $x = '|';
+
     public function index(): void {
+        $this->x = version_compare(VERSION, '4.0.2.0', '>=') ? '.' : '|';
+
         $this->load->language('extension/dosmap_locations/module/dosmap_locations');
 
         $this->load->model('setting/module');
         $this->load->model('setting/setting');
         $this->load->model('localisation/language');
         $this->load->model('extension/dosmap_locations/module/dosmap_locations');
-
-        $x = (version_compare(VERSION, '4.0.2.0', '>=')) ? '.' : '|';
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -220,7 +222,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             'href' => $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url, true)
         );
 
-        $data['action'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'save', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'save', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
         $url = '';
@@ -229,11 +231,11 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&module_id=' . $this->request->get['module_id'];
         }
 
-        $data['action_add'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_open'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'open', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_edit'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'edit', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_delete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['action_update_json'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'updateJSON', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_add'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_open'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'open', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_edit'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'edit', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_delete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['action_update_json'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'updateJSON', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $module_info = $this->model_setting_module->getModule($this->request->get['module_id']);
@@ -566,7 +568,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             'url'   => $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}&tab=locations')
         ]);
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($location_total) ? (($page - 1) * $data['limit_admin']) + 1 : 0, ((($page - 1) * $data['limit_admin']) > ($location_total - $data['limit_admin'])) ? $location_total : ((($page - 1) * $data['limit_admin']) + $data['limit_admin']), $location_total, ceil($location_total / $data['limit_admin']));
+        $data['results'] = sprintf($this->language->get('text_pagination'), $location_total ? (($page - 1) * $data['limit_admin']) + 1 : 0, (($page - 1) * $data['limit_admin']) > ($location_total - $data['limit_admin']) ? $location_total : (($page - 1) * $data['limit_admin']) + $data['limit_admin'], $location_total, ceil($location_total / $data['limit_admin']));
 
         /* Filter data */
 
@@ -582,7 +584,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
         $data['filter_status'] = $filter_status;
 
         $data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        //$data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'list', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        //$data['filter_url'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'list', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $url = '';
 
@@ -590,7 +592,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
             $url .= '&module_id=' . $this->request->get['module_id'];
         }
 
-        $data['filter_autocomplete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $x . 'autocomplete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['filter_autocomplete'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations' . $this->x . 'autocomplete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -617,11 +619,12 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     }
 
     /**
-    * List of Locations. AJAX.
+    * List of Locations.
+    * AJAX.
     *
-    * @return string
+    * @return void
     */
-	public function list(): string {
+	public function list(): void {
 		$this->load->language('extension/dosmap_locations/module/dosmap_locations');
 
         $json = '';
@@ -684,6 +687,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 
                 // Add Demo data to DB by Module ID.
                 $location_id = $this->model_extension_dosmap_locations_module_dosmap_locations->addLocation($this->demoData(), $module_id);
+
+                //$json['redirect'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module');
             } else {
                 // Get POST data.
                 $post = $this->request->post;
@@ -706,6 +711,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
                 // Add Settings to DB.
                 $config_settings = array('module_dosmap_locations_data_delete' => $data_delete);
                 $this->model_setting_setting->editSetting('module_dosmap_locations', $config_settings);
+
+                //$json['redirect'] = $this->url->link('extension/dosmap_locations/module/dosmap_locations', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id']);
             }
 
             $json['success'] = $this->language->get('text_success');
@@ -720,7 +727,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     }
 
     /**
-    * Add Location. AJAX.
+    * Add Location.
+    * AJAX.
     *
     * @return void
     */
@@ -766,8 +774,9 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	}
 
     /**
-    * Open Location. AJAX.
+    * Open Location.
     * Get Location Descriptions.
+    * AJAX.
     *
     * @return void
     */
@@ -803,7 +812,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	}
 
     /**
-    * Edit Location. AJAX.
+    * Edit Location.
+    * AJAX.
     *
     * @return void
     */
@@ -847,7 +857,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	}
 
     /**
-    * Delete Location. AJAX.
+    * Delete Location.
+    * AJAX.
     *
     * @return void
     */
@@ -903,7 +914,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	}
 
     /**
-    * Update JSON File. AJAX.
+    * Update JSON File.
+    * AJAX.
     *
     * @return void
     */
@@ -1113,7 +1125,8 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
 	}
 
     /**
-    * Filter Locations by field-option. AJAX.
+    * Filter Locations by field-option.
+    * AJAX.
     *
     * @return void
     */
@@ -1197,7 +1210,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     /**
     * Validate fiels from 'Add Location' tab.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_add(): bool {
         if (empty($this->request->get['module_id'])) {
@@ -1224,7 +1237,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     /**
     * Validate Location fields from 'open()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_open(): bool {
         if (empty($this->request->get['module_id'])) {
@@ -1243,7 +1256,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     /**
     * Validate Location fields from 'edit()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_edit(): bool {
         if (empty($this->request->get['module_id'])) {
@@ -1276,7 +1289,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     /**
     * Validate Location fields from 'delete()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_delete(): bool {
         if (empty($this->request->get['module_id'])) {
@@ -1297,7 +1310,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     /**
     * Validate Module ID from 'updateJSON()' method.
     *
-    * @return bool $this->error
+    * @return bool
     */
     protected function validate_updateJSON(): bool {
         if (empty($this->request->get['module_id'])) {
@@ -1314,7 +1327,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     *
     * @return string $lat
     */
-    private function validateLatitude($lat): string {
+    private function validateLatitude(string $lat): string {
         return preg_match('/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/', $lat);
     }
 
@@ -1325,7 +1338,7 @@ class DOSMapLocations extends \Opencart\System\Engine\Controller {
     *
     * @return string $long
     */
-    private function validateLongitude($long): string {
+    private function validateLongitude(string $long): string {
         return preg_match('/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/', $long);
     }
 
